@@ -1,4 +1,4 @@
-
+// Git ne podderjivaet kirillicu, commentarii dubliruyi
 #include "stdc++.h"
 using namespace std;
 
@@ -9,6 +9,7 @@ int prec(char ch) {
 }
 
 // —оздание стека последовательности вычислени€
+// Sozdanie stack-posledovatelnosti vyichislenia
 string infixToPostfix(string& s) {
     stack<char> st;
     string res;
@@ -70,6 +71,7 @@ int main() {
     getline(cin, s);
 
     // ”дал€ем пробелы в строке. я пишу пример с пробелами, а на вход стрека нужно давать строку без них
+    // Udalenie probelow v stroke. Ya pishu primer s probelami, a na vhod stack nujno davat stroku bez nih
     int pos = s.find(' ', 0);
     while (pos != -1) {
         //cout << " - pos - " << pos << endl;
