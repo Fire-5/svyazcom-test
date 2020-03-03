@@ -142,8 +142,8 @@ int main() {
     s = DelProbel(s);
 
     s = StackCreate(s);
-    stringstream str(s);
-    double res = Schet(str, st, a, b);
+    stringstream strk(s);
+    double res = Schet(strk, st, a, b);
     cout << " Результат: " << res << "\n";
 
     system("pause");

@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client-test.cpp" />
+    <ClCompile Include="math-test-vith-class-v04.cpp" />
+    <ClCompile Include="Server-test.cpp" />
+    <ClCompile Include="testing.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdc++.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{231B2595-7C8B-47AB-8E74-D599A04A1D9E}</ProjectGuid>
@@ -137,9 +146,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="client-test-v01.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
