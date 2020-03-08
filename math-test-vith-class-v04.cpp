@@ -71,7 +71,8 @@ string StackCreate(string& s) {
     return res;
 }
 
-double Schet(stringstream str, stack<double> st, double a,  double b) {
+double Schet(string s, stack<double> st, double a,  double b) {
+    stringstream str(s);
     string sign;
     while (str >> sign) {
         if (!(sign == "-" || sign == "+" || sign == "*" || sign == "/"))
@@ -88,22 +89,22 @@ double Schet(stringstream str, stack<double> st, double a,  double b) {
             switch (sign[0]) {
             case '+':
                 st.push(a + b);
-                //cout << " -- " << a << "+" << b;
+                cout << " --> " << a << "+" << b;
                 break;
             case '-':
                 st.push(a - b);
-                //cout << " -- " << a << "-" << b;
+                cout << " --> " << a << "-" << b;
                 break;
             case '*':
                 st.push(a * b);
-                //cout << " -- " << a << "*" << b;
+                cout << " --> " << a << "*" << b;
                 break;
             case '/':
                 st.push(a / b);
-                //cout << " -- " << a << "/" << b;
+                cout << " --> " << a << "/" << b;
                 break;
             }
-            //cout << " = " << st.top() << endl;
+            cout << " = " << st.top() << endl;
         }
     }
     if (!st.empty()) {
@@ -133,7 +134,7 @@ string DelProbel (string s) {
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    double a, b;
+    double a = 0, b = 0;
     stack<double> st;
     string s;
 
@@ -142,8 +143,8 @@ int main() {
     s = DelProbel(s);
 
     s = StackCreate(s);
-    stringstream strk(s);
-    double res = Schet(strk, st, a, b);
+   
+    double res = Schet(s, st, a, b);
     cout << " Результат: " << res << "\n";
 
     system("pause");
