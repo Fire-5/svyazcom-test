@@ -1,7 +1,8 @@
-// Git ne podderjivaet kirillicu, commentarii dubliruyi
-
 #include "stdc++.h"
 using namespace std;
+
+const bool DEBUG = false;
+
 class MathString {
 public:
     string Stroka_vvoda;
@@ -23,12 +24,18 @@ private:
     string DelProbel() {
         int pos = Stroka_vvoda.find(' ', 0);
         while (pos != -1) {
-            //cout << " - pos - " << pos << endl;
+            if (DEBUG == true) {
+                cout << " - pos - " << pos << endl;
+            }
             Stroka_vvoda.erase(pos, 1);
             pos = Stroka_vvoda.find(' ', 0);
-            //cout << " - pos new - " << pos << endl;
+            if (DEBUG == true) {
+                cout << " - pos new - " << pos << endl;
+            }
         }
-        cout << " - Строка после удаления проблелов: " << Stroka_vvoda << endl;
+        if (DEBUG == true) {
+            cout << " Vash primer bez probelov: " << Stroka_vvoda << endl;
+        }
         return Stroka_vvoda;
     }
 
@@ -44,13 +51,17 @@ private:
         Stroka_vvoda += " ";
         int len = Stroka_vvoda.size();
         for (int i = 0; i < len; i++) {
-            if (isdigit(Stroka_vvoda[i]) || Stroka_vvoda[i] == '.') {   // isdigit(char ch) - проверка ch является ли цифрой от 0 до 9
+            if (isdigit(Stroka_vvoda[i]) || Stroka_vvoda[i] == '.') {
                 res += Stroka_vvoda[i];
-                // cout << " -- " << res << endl;
+                if (DEBUG == true) {
+                    cout << " -- " << res << endl;
+                }
             }
             else if (Stroka_vvoda[i] == '(') {
                 StackCh.push('(');
-                // cout << " -- " << res << endl;
+                if (DEBUG == true) {
+                    cout << " -- " << res << endl;
+                }
             }
             else if (Stroka_vvoda[i] == ')') {
                 res += " ";
@@ -59,12 +70,16 @@ private:
                     StackCh.pop();
                     res += ch;
                     if (ch == '*' || ch == '/') res += " ";
-                    // cout << " -- " << res << endl;
+                    if (DEBUG == true) {
+                        cout << " -- " << res << endl;
+                    }
                 }
                 if (StackCh.top() == '(') {
                     char ch = StackCh.top();
                     StackCh.pop();
-                    // cout << " -- " << res << endl;
+                    if (DEBUG == true) {
+                        cout << " -- " << res << endl;
+                    }
                 }
             }
             else {
@@ -74,10 +89,14 @@ private:
                     StackCh.pop();
                     res += ch;
                     res += " ";
-                    //cout << " -- " << res << endl;
+                    if (DEBUG == true) {
+                        cout << " -- " << res << endl;
+                    }
                 }
                 StackCh.push(Stroka_vvoda[i]);
-                // cout << " -- " << res << endl;
+                if (DEBUG == true) {
+                    cout << " -- " << res << endl;
+                }
             }
         }
         while (!StackCh.empty()) {
@@ -85,16 +104,19 @@ private:
             StackCh.pop();
             res += ch;
         }
-        cout << " - Наполнение стека: " << res << endl;
+        if (DEBUG == true) {
+            cout << " -- " << res << endl;
+        }
         return res;
     }
 
     double Schetaem() {
-        stringstream str(Stroka_vvoda);
+        double a, b;
+        stringstream str(Stroka_stack);
         string sign;
         while (str >> sign) {
             if (!(sign == "-" || sign == "+" || sign == "*" || sign == "/"))
-                st.push(atof(sign.c_str())); // Не до конца понимаю что здесь...
+                st.push(atof(sign.c_str()));
             else {
                 if (!st.empty()) {
                     b = st.top();
@@ -107,65 +129,64 @@ private:
                 switch (sign[0]) {
                 case '+':
                     st.push(a + b);
-                    cout << " --> " << a << "+" << b;
+                    if (DEBUG == true) {
+                        cout << " -- " << a << "+" << b;
+                    }
                     break;
                 case '-':
                     st.push(a - b);
-                    cout << " --> " << a << "-" << b;
+                    if (DEBUG == true) {
+                        cout << " -- " << a << "-" << b;
+                    }
                     break;
                 case '*':
                     st.push(a * b);
-                    cout << " --> " << a << "*" << b;
+                    if (DEBUG == true) {
+                        cout << " -- " << a << "*" << b;
+                    }
                     break;
                 case '/':
                     st.push(a / b);
-                    cout << " --> " << a << "/" << b;
+                    if (DEBUG == true) {
+                        cout << " -- " << a << "/" << b;
+                    }
                     break;
                 }
-                cout << " = " << st.top() << endl;
+                if (DEBUG == true) {
+                    cout << " = " << st.top() << endl;
+                }
             }
         }
         if (!st.empty()) {
             double ch = st.top();
             st.pop();
             if (st.empty()) {
-                //cout << " Результат: " << ch << "\n";
                 return ch;
             }
         }
-
     }
 
-
 };
-
 /*
-// Приоритет знаков через возвращение значений
-// Prioritet znacov cherez vozvraschenie znacheniy
 int Prioritet(char ch) {
     if (ch == '*' || ch == '/') return 2;
     else if (ch == '+' || ch == '-') return 1;
     else return -1;
 }
 
-// Создание стека последовательности вычисления
-// Sozdanie stack-posledovatelnosti vyichislenia
-// - push — добавить элемент в стек;
-// - pop   — удалить элемент из стека;
-// - peek — просмотреть элементы стека;
 string StackCreate(string& s) {
     stack<char> StackCh;
     string res;
     s += " ";
     int len = s.size();
     for (int i = 0; i < len; i++) {
-        if (isdigit(s[i]) || s[i] == '.') {   // isdigit(char ch) - проверка ch является ли цифрой от 0 до 9
+        if (isdigit(s[i]) || s[i] == '.') {
             res += s[i];
-            // cout << " -- " << res << endl;
+            cout << " -- " << res << endl;
         }
         else if (s[i] == '(') {
             StackCh.push('(');
-            // cout << " -- " << res << endl;
+            cout << " -- " << res << endl;
         }
         else if (s[i] == ')') {
             res += " ";
@@ -174,12 +195,12 @@ string StackCreate(string& s) {
                 StackCh.pop();
                 res += ch;
                 if (ch == '*' || ch == '/') res += " ";
-                // cout << " -- " << res << endl;
+                cout << " -- " << res << endl;
             }
             if (StackCh.top() == '(') {
                 char ch = StackCh.top();
                 StackCh.pop();
-                // cout << " -- " << res << endl;
+                cout << " -- " << res << endl;
             }
         }
         else {
@@ -189,10 +210,10 @@ string StackCreate(string& s) {
                 StackCh.pop();
                 res += ch;
                 res += " ";
-                //cout << " -- " << res << endl;
+                cout << " -- " << res << endl;
             }
             StackCh.push(s[i]);
-            // cout << " -- " << res << endl;
+            cout << " -- " << res << endl;
         }
     }
     while (!StackCh.empty()) {
@@ -200,16 +221,17 @@ string StackCreate(string& s) {
         StackCh.pop();
         res += ch;
     }
-    cout << " - Наполнение стека: " << res << endl;
+    cout << " - : " << res << endl;
     return res;
 }
 
-double Schet(string s, stack<double> st, double a,  double b) {
+double Schet(string s, stack<double> st) {
+    double a, b;
     stringstream str(s);
     string sign;
     while (str >> sign) {
         if (!(sign == "-" || sign == "+" || sign == "*" || sign == "/"))
-            st.push(atof(sign.c_str())); // Не до конца понимаю что здесь...
+            st.push(atof(sign.c_str()));
         else {
             if (!st.empty()) {
                 b = st.top();
@@ -222,19 +244,19 @@ double Schet(string s, stack<double> st, double a,  double b) {
             switch (sign[0]) {
             case '+':
                 st.push(a + b);
-                cout << " --> " << a << "+" << b;
+                cout << " -- " << a << "+" << b;
                 break;
             case '-':
                 st.push(a - b);
-                cout << " --> " << a << "-" << b;
+                cout << " -- " << a << "-" << b;
                 break;
             case '*':
                 st.push(a * b);
-                cout << " --> " << a << "*" << b;
+                cout << " -- " << a << "*" << b;
                 break;
             case '/':
                 st.push(a / b);
-                cout << " --> " << a << "/" << b;
+                cout << " -- " << a << "/" << b;
                 break;
             }
             cout << " = " << st.top() << endl;
@@ -244,60 +266,49 @@ double Schet(string s, stack<double> st, double a,  double b) {
         double ch = st.top();
         st.pop();
         if (st.empty()) {
-            //cout << " Результат: " << ch << "\n";
             return ch;
         }
     }
 
 }
 
-// Удаляем пробелы в строке. Я пишу пример с пробелами, а на вход стрека нужно давать строку без них
-// Udalenie probelow v stroke. Ya pishu primer s probelami, a na vhod stack nujno davat stroku bez nih
-string DelProbel (string s) {
+string DelProbel(string s) {
     int pos = s.find(' ', 0);
     while (pos != -1) {
-        //cout << " - pos - " << pos << endl;
+        cout << " - pos - " << pos << endl;
         s.erase(pos, 1);
         pos = s.find(' ', 0);
-        //cout << " - pos new - " << pos << endl;
+        cout << " - pos new - " << pos << endl;
     }
-    cout << " - Строка после удаления проблелов: " << s << endl;
+    cout << " --- : " << s << endl;
     return s;
 }
-*/
 
+int main(int argc, char* argv[]) {
+    setlocale(LC_ALL, "Russian");
 
-int main() {
-    /*
-    // Через функции (методы)...
-        setlocale(LC_ALL, "Russian");
-    double a = 0, b = 0;
     stack<double> st;
     string s;
 
-    cout << " Введите ваш пример: ";
+    cout << " Vvedite vash primer: ";
     getline(cin, s);
 
     s = DelProbel(s);
     s = StackCreate(s);
-   
-    double res = Schet(s, st, a, b);
-    cout << " Результат: " << res << "\n";
+    double res = Schet(s, st);
 
-    system("pause");
-    */
+    cout << " Resultat: " << res << "\n";
+    //system("pause");*/
 
-    // ---------------------------------------
-    // Через класс.
-
+int main(int argc, char* argv[]) {
     setlocale(LC_ALL, "Russian");
     string s;
 
     MathString Stroka;
-    cout << " Введите ваш пример: ";
+    cout << " Vvedite vash primer: ";
     getline(cin, s);
     Stroka.Podschet(s);
-    cout << " Результат: " << Stroka.resultat << "\n";
+    cout << " Resultat: " << Stroka.resultat << "\n";
 
     return 0;
 }
